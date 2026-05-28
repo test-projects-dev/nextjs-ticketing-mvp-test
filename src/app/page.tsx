@@ -4,6 +4,8 @@ import EventSearch from "@/components/sections/EventSearch";
 import EventList from "@/components/sections/EventList";
 import SeatSelection from "@/components/sections/SeatSelection";
 import CheckoutFlow from "@/components/sections/CheckoutFlow";
+import AdminPreview from "@/components/sections/AdminPreview";
+import Architecture from "@/components/sections/Architecture";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -16,6 +18,8 @@ export default function Home() {
         <EventList />
         <SeatSelection />
         <CheckoutFlow />
+        <AdminPreview />
+        <Architecture />
       </main>
       <Footer />
     </div>
