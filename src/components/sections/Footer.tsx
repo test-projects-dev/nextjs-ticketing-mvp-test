@@ -1,6 +1,6 @@
 import GithubMark from "@/components/icons/GithubMark";
 
-const REPO_URL = "https://github.com/mykhail-druz/nextjs-ticketing-mvp-test";
+const REPO_URL = "https://github.com/test-projects-dev/nextjs-ticketing-mvp-test";
 const LIVE_URL = "https://nextjs-ticketing-mvp-test.vercel.app";
 
 export default function Footer() {
