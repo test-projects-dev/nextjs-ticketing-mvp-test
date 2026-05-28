@@ -11,6 +11,7 @@ import {
   SectionHeading,
   SectionLead,
 } from "./EventSearch";
+import Marquee from "@/components/Marquee";
 
 const NODES = [
   {
@@ -80,16 +81,16 @@ export default function Architecture() {
               >
                 <n.Icon size={16} strokeWidth={1.75} aria-hidden="true" />
               </span>
-              <div className="min-w-0">
-                <p className="truncate text-body font-semibold text-text-primary">
+              <div className="min-w-0 flex-1">
+                <Marquee className="text-body font-semibold text-text-primary">
                   {n.label}
-                </p>
-                <p
-                  className="truncate text-caption text-text-secondary"
+                </Marquee>
+                <Marquee
+                  className="text-caption text-text-secondary"
                   style={{ fontFamily: "var(--font-geist-mono)" }}
                 >
                   {n.sub}
-                </p>
+                </Marquee>
               </div>
             </li>
           ))}

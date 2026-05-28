@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import {
   SectionEyebrow,
@@ -5,12 +8,10 @@ import {
   SectionLead,
 } from "./EventSearch";
 
-type SeatState = "available" | "selected" | "sold";
-
 const ROWS = ["A", "B", "C", "D", "E", "F"];
 const COLS = 10;
 
-const SELECTED = new Set(["C5", "C6", "C7"]);
+const INITIAL_SELECTED = ["C5", "C6", "C7"];
 const SOLD = new Set([
   "A2", "A3", "A4", "A8",
   "B1", "B7",
@@ -19,19 +20,22 @@ const SOLD = new Set([
   "F1", "F2", "F9",
 ]);
 
-function seatState(id: string): SeatState {
-  if (SELECTED.has(id)) return "selected";
-  if (SOLD.has(id)) return "sold";
-  return "available";
-}
-
 const SEAT_PRICE = 68;
 const FEE = 6.5;
 
 export default function SeatSelection() {
-  const seats = [...SELECTED];
-  const subtotal = seats.length * SEAT_PRICE;
-  const total = subtotal + FEE;
+  const [selected, setSelected] = useState<string[]>(INITIAL_SELECTED);
+
+  const toggle = (id: string) => {
+    if (SOLD.has(id)) return;
+    setSelected((prev) =>
+      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+    );
+  };
+
+  const subtotal = selected.length * SEAT_PRICE;
+  const total = selected.length === 0 ? 0 : subtotal + FEE;
+  const sortedSelected = [...selected].sort();
 
   return (
     <section
@@ -51,13 +55,14 @@ export default function SeatSelection() {
             className="rounded-2xl border border-border-light bg-surface p-5 md:p-8"
             style={{ boxShadow: "var(--shadow-subtle)" }}
           >
-            <div className="mx-auto mb-8 h-1.5 w-3/4 rounded-full bg-text-primary/10 text-center">
+            <div className="mb-8 flex flex-col items-center gap-2">
               <p
-                className="-mt-7 text-caption text-text-muted"
+                className="text-caption uppercase tracking-[0.18em] text-text-muted"
                 style={{ fontFamily: "var(--font-geist-mono)" }}
               >
-                STAGE
+                Stage
               </p>
+              <div className="h-1.5 w-3/4 rounded-full bg-text-primary/15" />
             </div>
 
             <div className="space-y-2">
@@ -75,19 +80,24 @@ export default function SeatSelection() {
                   {Array.from({ length: COLS }, (_, i) => {
                     const num = i + 1;
                     const id = `${row}${num}`;
-                    const state = seatState(id);
+                    const isSold = SOLD.has(id);
+                    const isSelected = selected.includes(id);
                     return (
-                      <span
+                      <button
                         key={id}
-                        title={`Seat ${id}${state === "sold" ? " — sold" : ""}`}
-                        aria-label={`Seat ${id} ${state}`}
+                        type="button"
+                        onClick={() => toggle(id)}
+                        disabled={isSold}
+                        aria-pressed={isSelected}
+                        aria-label={`Seat ${id} ${isSold ? "sold" : isSelected ? "selected" : "available"}`}
+                        title={`Seat ${id}${isSold ? " — sold" : ""}`}
                         className={
-                          "h-6 w-6 rounded-md md:h-7 md:w-7 " +
-                          (state === "selected"
-                            ? "bg-accent ring-2 ring-accent ring-offset-2 ring-offset-surface"
-                            : state === "sold"
-                              ? "bg-border-light opacity-60"
-                              : "bg-surface-muted hover:bg-accent-soft cursor-pointer border border-border-light")
+                          "relative h-6 w-6 rounded-md transition-transform md:h-7 md:w-7 " +
+                          (isSelected
+                            ? "bg-accent ring-2 ring-accent ring-offset-2 ring-offset-surface hover:scale-110"
+                            : isSold
+                              ? "bg-text-primary/25 cursor-not-allowed after:absolute after:inset-0 after:m-auto after:h-3 after:w-px after:rotate-45 after:bg-text-primary/40"
+                              : "bg-surface-muted hover:bg-accent-soft cursor-pointer border border-border-light hover:scale-110")
                         }
                       />
                     );
@@ -109,7 +119,7 @@ export default function SeatSelection() {
                 Selected
               </li>
               <li className="inline-flex items-center gap-2">
-                <span className="h-3 w-3 rounded-sm bg-border-light opacity-60" />
+                <span className="h-3 w-3 rounded-sm bg-text-primary/25" />
                 Sold
               </li>
             </ul>
@@ -137,20 +147,26 @@ export default function SeatSelection() {
               </div>
             </div>
 
-            <ul className="mt-6 space-y-2 border-t border-border-light pt-4">
-              {seats.map((id) => (
-                <li
-                  key={id}
-                  className="flex items-center justify-between text-body"
-                >
-                  <span className="text-text-secondary">
-                    Row {id[0]} · Seat {id.slice(1)}
-                  </span>
-                  <span className="font-medium text-text-primary">
-                    £{SEAT_PRICE.toFixed(2)}
-                  </span>
+            <ul className="mt-6 min-h-[80px] space-y-2 border-t border-border-light pt-4">
+              {sortedSelected.length === 0 ? (
+                <li className="text-caption text-text-muted">
+                  No seats selected. Tap a seat on the map to add it.
                 </li>
-              ))}
+              ) : (
+                sortedSelected.map((id) => (
+                  <li
+                    key={id}
+                    className="flex items-center justify-between text-body"
+                  >
+                    <span className="text-text-secondary">
+                      Row {id[0]} · Seat {id.slice(1)}
+                    </span>
+                    <span className="font-medium text-text-primary">
+                      £{SEAT_PRICE.toFixed(2)}
+                    </span>
+                  </li>
+                ))
+              )}
             </ul>
 
             <dl className="mt-6 space-y-1.5 border-t border-border-light pt-4 text-body">
@@ -160,7 +176,7 @@ export default function SeatSelection() {
               </div>
               <div className="flex justify-between text-text-secondary">
                 <dt>Booking fee</dt>
-                <dd>£{FEE.toFixed(2)}</dd>
+                <dd>£{(selected.length === 0 ? 0 : FEE).toFixed(2)}</dd>
               </div>
               <div className="flex justify-between pt-2 text-body font-semibold text-text-primary">
                 <dt>Total</dt>
@@ -170,8 +186,18 @@ export default function SeatSelection() {
 
             <a
               href="#checkout"
-              className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-body font-medium text-accent-fg transition-colors hover:bg-accent-hover"
-              style={{ boxShadow: "var(--shadow-subtle)" }}
+              aria-disabled={selected.length === 0}
+              className={
+                "mt-6 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-body font-medium transition-colors " +
+                (selected.length === 0
+                  ? "pointer-events-none bg-border-light text-text-muted"
+                  : "bg-accent text-accent-fg hover:bg-accent-hover")
+              }
+              style={
+                selected.length === 0
+                  ? undefined
+                  : { boxShadow: "var(--shadow-subtle)" }
+              }
             >
               Continue to checkout
               <ArrowRight size={14} strokeWidth={1.75} aria-hidden="true" />
