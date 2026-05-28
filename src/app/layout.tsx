@@ -13,13 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js MVP Starter",
+  title: "Event Ticketing MVP — Hello World",
   description:
-    "A minimal Next.js starter built with TypeScript and Tailwind CSS.",
+    "A static preview of an event ticketing MVP — search, seats, checkout, and admin — built with Next.js, TypeScript, and Tailwind CSS.",
   openGraph: {
-    title: "Next.js MVP Starter",
+    title: "Event Ticketing MVP — Hello World",
     description:
-      "A minimal Next.js starter built with TypeScript and Tailwind CSS.",
+      "A static preview of an event ticketing MVP — search, seats, checkout, and admin — built with Next.js, TypeScript, and Tailwind CSS.",
     type: "website",
   },
   metadataBase: new URL("https://nextjs-ticketing-mvp-test.vercel.app"),
