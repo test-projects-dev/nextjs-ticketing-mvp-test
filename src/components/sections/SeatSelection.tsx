@@ -150,14 +150,13 @@ export default function SeatSelection() {
             <div className="mt-6 border-t border-border-light pt-4">
               {sortedSelected.length > 4 && (
                 <p
-                  className="mb-2 flex items-center justify-between text-caption text-text-muted"
+                  className="mb-2 text-caption text-text-muted"
                   style={{ fontFamily: "var(--font-geist-mono)" }}
                 >
-                  <span>{sortedSelected.length} seats</span>
-                  <span>scroll ↓</span>
+                  {sortedSelected.length} seats
                 </p>
               )}
-              <ul className="min-h-[80px] max-h-44 space-y-2 overflow-y-auto pr-1">
+              <ul className="scrollbar-subtle min-h-[80px] max-h-44 space-y-2 overflow-y-auto pr-2">
                 {sortedSelected.length === 0 ? (
                   <li className="text-caption text-text-muted">
                     No seats selected. Tap a seat on the map to add it.
