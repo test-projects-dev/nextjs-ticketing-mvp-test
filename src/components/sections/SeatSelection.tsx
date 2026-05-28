@@ -94,10 +94,10 @@ export default function SeatSelection() {
                         className={
                           "relative h-6 w-6 rounded-md transition-transform md:h-7 md:w-7 " +
                           (isSelected
-                            ? "bg-accent ring-2 ring-accent ring-offset-2 ring-offset-surface hover:scale-110"
+                            ? "bg-accent ring-1 ring-accent/70 hover:scale-110"
                             : isSold
                               ? "bg-text-primary/25 cursor-not-allowed after:absolute after:inset-0 after:m-auto after:h-3 after:w-px after:rotate-45 after:bg-text-primary/40"
-                              : "bg-surface-muted hover:bg-accent-soft cursor-pointer border border-border-light hover:scale-110")
+                              : "bg-surface-muted hover:bg-accent-soft border border-border-light hover:scale-110")
                         }
                       />
                     );
@@ -119,7 +119,7 @@ export default function SeatSelection() {
                 Selected
               </li>
               <li className="inline-flex items-center gap-2">
-                <span className="h-3 w-3 rounded-sm bg-text-primary/25" />
+                <span className="relative h-3 w-3 rounded-sm bg-text-primary/25 after:absolute after:inset-0 after:m-auto after:h-2 after:w-px after:rotate-45 after:bg-text-primary/50" />
                 Sold
               </li>
             </ul>

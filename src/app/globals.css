@@ -67,6 +67,12 @@ select option {
   background-color: var(--color-surface);
 }
 
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+a[href] {
+  cursor: pointer;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);
