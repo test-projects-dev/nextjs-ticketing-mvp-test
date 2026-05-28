@@ -2,7 +2,7 @@ import { Ticket } from "lucide-react";
 import GithubMark from "@/components/icons/GithubMark";
 
 const REPO_URL = "https://github.com/test-projects-dev/nextjs-ticketing-mvp-test";
-const LIVE_URL = "https://nextjs-ticketing-mvp-test.vercel.app";
+const LIVE_URL = "https://nextjs-ticketing-mvp-test-two.vercel.app";
 
 export default function Header() {
   return (

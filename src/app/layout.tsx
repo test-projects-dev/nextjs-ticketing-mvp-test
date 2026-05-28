@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "A static preview of an event ticketing MVP — search, seats, checkout, and admin — built with Next.js, TypeScript, and Tailwind CSS.",
     type: "website",
   },
-  metadataBase: new URL("https://nextjs-ticketing-mvp-test.vercel.app"),
+  metadataBase: new URL("https://nextjs-ticketing-mvp-test-two.vercel.app"),
 };
 
 export const viewport: Viewport = {

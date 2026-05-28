@@ -2,7 +2,7 @@
 
 A static preview of an event ticketing MVP, built on Next.js. The homepage still leads with **Hello World** (per the original brief) and adds a polished preview of what the full product will look like: search, event cards, seat selection, checkout, an admin dashboard, and the target architecture.
 
-- Live: <https://nextjs-ticketing-mvp-test.vercel.app>
+- Live: <https://nextjs-ticketing-mvp-test-two.vercel.app>
 - Source: <https://github.com/test-projects-dev/nextjs-ticketing-mvp-test>
 
 ## Sections
