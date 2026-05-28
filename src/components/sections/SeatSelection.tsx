@@ -147,27 +147,38 @@ export default function SeatSelection() {
               </div>
             </div>
 
-            <ul className="mt-6 min-h-[80px] space-y-2 border-t border-border-light pt-4">
-              {sortedSelected.length === 0 ? (
-                <li className="text-caption text-text-muted">
-                  No seats selected. Tap a seat on the map to add it.
-                </li>
-              ) : (
-                sortedSelected.map((id) => (
-                  <li
-                    key={id}
-                    className="flex items-center justify-between text-body"
-                  >
-                    <span className="text-text-secondary">
-                      Row {id[0]} · Seat {id.slice(1)}
-                    </span>
-                    <span className="font-medium text-text-primary">
-                      £{SEAT_PRICE.toFixed(2)}
-                    </span>
-                  </li>
-                ))
+            <div className="mt-6 border-t border-border-light pt-4">
+              {sortedSelected.length > 4 && (
+                <p
+                  className="mb-2 flex items-center justify-between text-caption text-text-muted"
+                  style={{ fontFamily: "var(--font-geist-mono)" }}
+                >
+                  <span>{sortedSelected.length} seats</span>
+                  <span>scroll ↓</span>
+                </p>
               )}
-            </ul>
+              <ul className="min-h-[80px] max-h-44 space-y-2 overflow-y-auto pr-1">
+                {sortedSelected.length === 0 ? (
+                  <li className="text-caption text-text-muted">
+                    No seats selected. Tap a seat on the map to add it.
+                  </li>
+                ) : (
+                  sortedSelected.map((id) => (
+                    <li
+                      key={id}
+                      className="flex items-center justify-between text-body"
+                    >
+                      <span className="text-text-secondary">
+                        Row {id[0]} · Seat {id.slice(1)}
+                      </span>
+                      <span className="font-medium text-text-primary">
+                        £{SEAT_PRICE.toFixed(2)}
+                      </span>
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
 
             <dl className="mt-6 space-y-1.5 border-t border-border-light pt-4 text-body">
               <div className="flex justify-between text-text-secondary">
